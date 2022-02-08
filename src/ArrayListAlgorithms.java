@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ArrayListAlgorithms {
     /**
@@ -123,7 +124,7 @@ public class ArrayListAlgorithms {
      *  DOES mutate (modify) elements in numList
      *  PRECONDITION: numList1.size() > 0
      *
-     *  @param numList1  arraylist of Integers
+     *  @param numList  arraylist of Integers
      */
     public static void removeOdds(ArrayList<Integer> numList)
     {
@@ -149,21 +150,98 @@ public class ArrayListAlgorithms {
      */
     public static void wackyVowels(ArrayList<String> wordList)
     {
-        ArrayList<String> vowels = new ArrayList<String> ();
-        vowels.add("a");
-        vowels.add("e");
-        vowels.add("i");
-        vowels.add("o");
+        ArrayList<String> vowels = new ArrayList<String>(Arrays.asList("a", "e", "i", "o"));
+        //Try this again later ;(
+    }
 
-        for (int i = 0; i < wordList.size(); i++) {
-            for (String v : vowels) {
-                for (int l = 0; l < wordList.get(i).length(); l++) {
-                    if (wordList.get(i).substring(l, l + 1).equals(v)) {
-                        wordList.remove()
-                    }
+    /** Removes all duplicate values from an intList, leaving only the first
+     *  occurrence in the arrayList; for example, this method will modify
+     *  [1, 2, 5, 4, 2, 2, 1, 6, 4, 4, 8, 1, 7, 4, 2] --> [1, 2, 5, 4, 6, 8, 7]
+     *
+     *  DOES mutate (modify) elements in intList
+     *  PRECONDITION: intList.size() > 0
+     *
+     *  @param intList  intList of Integers
+     */
+    public static void removeDuplicates(ArrayList<Integer> intList)
+    {
+        for (int n = 0; n < intList.size(); n++) {
+            int num = intList.get(n);
+            for (int t = n + 1; t < intList.size(); t++) {
+                if (num == intList.get(t)) {
+                    intList.remove(t);
+                    t--;
                 }
             }
         }
+    }
+
+    /** Adds an uppercase version of each string directly AFTER the string
+     *  in wordList; for example, if wordList is ["hello", "my", "best", "friend"]
+     *  this this method modifies wordList to be:
+     *  ["hello", "HELLO", "my", "MY", "best", "BEST", "friend", "FRIEND"]
+     *
+     *  Assume all words have lowercase letters originally
+     *
+     *  DOES mutate (modify) elements in wordList
+     *  PRECONDITION: wordList.size() > 0
+     *
+     *  @param wordList  arraylist of Strings
+     */
+    public static void duplicateUpperAfter(ArrayList<String> wordList)
+    {
+        for (int i = 0; i < wordList.size(); i++) {
+            wordList.add(i + 1, wordList.get(i).toUpperCase());
+            i++;
+        }
+    }
+
+    /** Appends an uppercase version of each string to the END of of wordList;
+     *  the uppercase versions appear in the same order as the lowercase versions
+     *  for example, if wordList is ["hello", "my", "best", "friend"]
+     *  this this method modifies wordList to be:
+     *  ["hello", "my", "best", "friend", "HELLO", "MY", "BEST", "FRIEND"]
+     *
+     *  Assume all words have lowercase letters originally
+     *
+     *  DOES mutate (modify) elements in wordList
+     *  PRECONDITION: wordList.size() > 0
+     *
+     *  @param wordList  arraylist of Strings
+     */
+    public static void duplicateUpperEnd(ArrayList<String> wordList)
+    {
+        int times = wordList.size();
+        for (int i = 0; i < times; i++) {
+            wordList.add(wordList.get(i).toUpperCase());
+        }
+    }
+
+    /** Returns an arraylist of Strings that represents the input sentence parsed
+     *  into separate words (using a space: " " as the delimiter) and REVERSED
+     *  For example, if sentence = "This is my sentence!"
+     *  this method return [sentence!, my, is, This]
+     *
+     *  PRECONDITION: sentence does not end with a space
+     *
+     *  @param sentence  the input String that represents one or more words
+    separated by spaces
+     *  @return  new arraylist of Strings containing the words of sentence reversed
+     */
+    public static ArrayList<String> parseWordsAndReverse(String sentence)
+    {
+        ArrayList<String> parseWords = new ArrayList<String> ();
+        while (sentence.indexOf(" ") != -1) {
+            int in = sentence.indexOf(" ");
+            parseWords.add(sentence.substring(0, in));
+            sentence = sentence.substring(in + 1);
+        }
+        parseWords.add(sentence);
+        ArrayList<String> reverse = new ArrayList<String> ();
+        for (int i = parseWords.size() - 1; i >= 0; i++){
+            reverse.add(parseWords.get(i));
+        }
+        return reverse;
     }
 
 }
