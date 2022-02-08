@@ -236,13 +236,13 @@ public class ArrayListAlgorithms {
             parseWords.add(sentence.substring(0, in));
             sentence = sentence.substring(in + 1);
         }
+
         parseWords.add(sentence);
         ArrayList<String> reverse = new ArrayList<String> ();
-        for (int i = parseWords.size() - 1; i >= 0; i++){
-            reverse.add(parseWords.get(i));
+        for (int i = 1; i < parseWords.size()+1; i++){
+            reverse.add(parseWords.get(parseWords.size() - i));
         }
         return reverse;
     }
-
 }
 
