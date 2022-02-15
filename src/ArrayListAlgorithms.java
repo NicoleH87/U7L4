@@ -151,7 +151,33 @@ public class ArrayListAlgorithms {
     public static void wackyVowels(ArrayList<String> wordList)
     {
         ArrayList<String> vowels = new ArrayList<String>(Arrays.asList("a", "e", "i", "o"));
-        //Try this again later ;(
+        for (int i = 0; i < wordList.size(); i++)
+        {
+            boolean remove = false;
+            for (int l = 0; l < wordList.get(i).length(); l++)
+            {
+                for (int v = 0; v < vowels.size(); v++)
+                {
+                    if (wordList.get(i).indexOf(vowels.get(v)) != -1)
+                    {
+                        wordList.remove(i);
+                        remove = true;
+                        i--;
+                    }
+                }
+            }
+            if (remove == false)
+            {
+                for (int l = 0; l < wordList.get(i).length(); l++)
+                {
+                    if (wordList.get(i).indexOf("u") != -1 || wordList.get(i).indexOf("y") != -1)
+                    {
+                        wordList.add(wordList.get(i));
+                        i++;
+                    }
+                }
+            }
+        }
     }
 
     /** Removes all duplicate values from an intList, leaving only the first
@@ -300,40 +326,36 @@ public class ArrayListAlgorithms {
      */
     public static ArrayList<Integer> modes(int[] numList)
     {
-        ArrayList<Integer> numbers = new ArrayList<Integer>();
-        ArrayList<Integer> modeNum = new ArrayList<Integer>();
-        int times = 0;
-        numbers.add(numList[0]);
-        modeNum.add(1);
-        for (int i = 1; i < numList.length; i++)
+        int highestMode = 0;
+        for(int i = 0; i < numList.length; i++)
         {
-            for (int n = 0; n < numbers.size(); n++)
+            int m = 0;
+            for (int k = 0; k < numList.length; k++)
             {
-                if (n != numList[i])
+                if (numList[i] == numList[k])
                 {
-                    numbers.add(numList[i]);
-                    modeNum.add(1);
-                }
-                else
-                {
-                    modeNum.set(n, modeNum.get(n) + 1);
+                    m++;
+                    if (m > highestMode)
+                    {
+                        highestMode = m;
+                    }
                 }
             }
         }
         ArrayList<Integer> mode = new ArrayList<Integer>();
-        int g = 0;
-        for (int s = 0; s < modeNum.size(); s++)
+        int count = 0;
+        for(int i = 0; i < numList.length; i++)
         {
-            if (modeNum.get(s) > g)
+            for (int k = 0; k < numList.length; k++)
             {
-                g = modeNum.get(s);
+                if (numList[i] == numList[k])
+                {
+                    count++;
+                }
             }
-        }
-        for (int l = 0; l < modeNum.size(); l++)
-        {
-            if (modeNum.get(l) == g)
+            if (count == highestMode)
             {
-                mode.add(l);
+                mode.add(numList[i]);
             }
         }
         return mode;

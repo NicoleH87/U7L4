@@ -26,4 +26,3 @@ public class ArrayListAlgorithmTester
         System.out.println(modes5);
     }
 }
-
